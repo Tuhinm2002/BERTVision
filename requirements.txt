@@ -1,0 +1,9 @@
+streamlit
+opencv-python
+caer
+torch
+transformers[torch]
+transformers
+sentencepiece
+accelerate
+easyocr
