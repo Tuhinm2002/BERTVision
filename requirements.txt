@@ -1,6 +1,5 @@
 streamlit
-opencv-python
-caer
+opencv-contrib-python-headless
 torch
 transformers[torch]
 transformers
