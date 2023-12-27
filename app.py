@@ -40,7 +40,7 @@ if start_button:
 
     cap.release()
 
-cv.destroyAllWindows()
+# cv.destroyAllWindows()
 st.write("\n")
 st.write("\n")
 st.write("\n")
