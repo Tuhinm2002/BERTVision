@@ -4,27 +4,13 @@ import easyocr
 
 import torch
 import torch.nn as nn
-from transformers import BertModel,BertTokenizer
+from transformers import BertForSequenceClassification,BertTokenizer
 
-model = BertModel.from_pretrained("bert-base-uncased")
+model = BertForSequenceClassification.from_pretrained("./cpu model/")
 tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
+d = {0:"sadness",1:"joy",2:"love",3:"anger",4:"fear",5:"surprise"}
 
-class BERTModel(nn.Module):
-    def __init__(self,model,num_classes):
-        super(BERTModel,self).__init__()
-        self.model = model
-        self.final_layer = nn.Linear(in_features=768,out_features=num_classes)
-
-    def forward(self,x):
-        x = self.model(x)[1]
-        x = self.final_layer(x)
-
-        return x
-
-model_0 = BERTModel(model,num_classes=6)
-model_0.load_state_dict(torch.load("model_cpu.pt"))
-
-st.write("### NLP Vision ")
+st.write("### BERT Vision 👁️👁️")
 read = easyocr.Reader(['en'],gpu=False)
 stop_button = st.button("Stop")
 start_button = st.button("Start")
@@ -46,10 +32,8 @@ if start_button:
                 word = tokenizer([text], truncation=True, max_length=128, padding="max_length",
                                  return_tensors="pt")
 
-                with torch.no_grad():
-                    model_0.eval()
-                    Y_pred = model_0(word['input_ids'])
-                    print(Y_pred)
+                preds = model(word['input_ids'])
+                st.write(d[torch.argmax(preds['logits']).item()])
 
         if cv.waitKey(1) & 0xFF == ord("q") or stop_button:
             break
@@ -57,5 +41,26 @@ if start_button:
     cap.release()
 
 cv.destroyAllWindows()
+st.write("\n")
+st.write("\n")
+st.write("\n")
+st.write("\n")
+st.write("\n")
+st.write("\n")
+st.write("\n")
+st.write("\n")
+st.write("\n")
+st.write("\n")
+st.write("\n")
+btn1 = st.button("FAQ ")
+if btn1:
+    st.write("What is FAQ ?!")
 
+btn2 = st.button("Who made this ?")
+if btn2:
+    st.write("Guess who !!")
+
+btn3 = st.button("Anything else you want to know ?? ")
+if btn3:
+    st.write("It may occasionally predict wrong outputs")
 
