@@ -5,7 +5,7 @@ The project uses text classification using BERT model to predict the emotion beh
 
 Steps to use it : 
 * clone the repo locally
-Run these commands on terminal or powershell
+\n Run these commands on terminal or powershell
 * pip install -r requirements.txt
 * streamlit run app.py
 
