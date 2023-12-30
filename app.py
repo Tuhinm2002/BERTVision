@@ -1,5 +1,6 @@
 import streamlit as st
-import cv2 as cv
+from PIL import Image
+import PIL
 import easyocr
 
 import torch
@@ -12,33 +13,19 @@ d = {0:"sadness",1:"joy",2:"love",3:"anger",4:"fear",5:"surprise"}
 
 st.write("### BERT Vision 👁️👁️")
 read = easyocr.Reader(['en'],gpu=False)
-stop_button = st.button("Stop")
-start_button = st.button("Start")
-if start_button:
-    cap = cv.VideoCapture(0)
-    frame_placeholder = st.empty()
-    while cap.isOpened() and not stop_button:
-        ret, frame = cap.read()
+img = st.camera_input("Hint !! Take the image of a text")
+if img is not None:
+    img = Image.open(img)
+    result = read.readtext(img)
+    for bbox,text,_ in result:
+        st.write("#### Obtained text from the image")
+        st.write(text)
+        word = tokenizer([text], truncation=True, max_length=128, padding="max_length",
+                         return_tensors="pt")
 
-        if not ret:
-            st.write("The video captures is ended")
-            break
-
-        frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
-        frame_placeholder.image(frame, channels="RGB")
-        result = read.readtext(frame)
-        if len(result) > 1:
-            for (bbox,text,prob) in result:
-                word = tokenizer([text], truncation=True, max_length=128, padding="max_length",
-                                 return_tensors="pt")
-
-                preds = model(word['input_ids'])
-                st.write(d[torch.argmax(preds['logits']).item()])
-
-        if cv.waitKey(1) & 0xFF == ord("q") or stop_button:
-            break
-
-    cap.release()
+        preds = model(word['input_ids'])
+        st.write("### Word prediction")
+        st.write(d[torch.argmax(preds['logits']).item()])
 
 # cv.destroyAllWindows()
 st.write("\n")
