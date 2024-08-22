@@ -38,7 +38,7 @@ The model is based on **BERT**, fine-tuned on a **Twitter comments dataset** to 
 4. The result is displayed instantly on the screen.
 
 ## 🌐 **Live Demo**
-Check out the [live demo on Hugging Face Spaces](https://huggingface.co/spaces/your-demo-link) to see the project in action!
+Check out the [https://huggingface.co/spaces/your-demo-link](https://huggingface.co/spaces/Tuhinm2002/bert-vision) to see the project in action!
 
 ## 🧩 **Future Work**
 - Expand the model to classify more complex emotions.
