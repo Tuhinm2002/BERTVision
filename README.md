@@ -16,16 +16,16 @@ In this project, we harness the power of **BERT** to analyze text presented in f
 ## 🛠️ **Setup**
 1. **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/real-time-emotion-prediction.git
+    git clone https://github.com/Tuhinm2002/BERTVision.git
     ```
 2. **Navigate to the project directory:**
     ```bash
-    cd real-time-emotion-prediction
+    cd BERTVision
     ```
 3. **Build and run the Docker container:**
     ```bash
-    docker build -t emotion-prediction .
-    docker run -p 8000:8000 emotion-prediction
+    docker build -t BERTVision .
+    docker run -p 8000:8000 BERTVision
     ```
 
 ## 📊 **Model**
